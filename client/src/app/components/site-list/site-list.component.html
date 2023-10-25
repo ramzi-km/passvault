@@ -1,0 +1,74 @@
+<div class="container my-16">
+  <h1 class="text-5xl mt-0 mb-5">Passvault password manager</h1>
+  <p class="mb-5">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales
+    risus mattis, euismod purus at, elementum augue. Phasellus nec neque nec
+    nisl pellentesque tincidunt. Nam cursus, nunc quis sollicitudin eleifend, ex
+    felis tincidunt tellus, non venenatis massa ligula eu urna. Duis at luctus
+    risus. Nullam at ipsum condimentum, faucibus dui sed, fermentum ipsum. Nunc
+  </p>
+  <button class="btn normal-case btn-primary text-white">Add New Site</button>
+
+  <!-- Add new site from  -->
+  <div class="px-20 py-10 mb-10 my-5 border-4 border-gray-900">
+    <h2 class="text-3xl text-center">Add New Site</h2>
+    <p class="text-center">You can add a new site from the form below</p>
+    <form>
+      <div class="flex flex-col">
+        <label class="text-lg font-medium mb-2">Site Name</label>
+        <input
+          name="siteName"
+          class="input input-bordered border-black"
+          type="text"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-lg font-medium mb-2">Site URL</label>
+        <input
+          name="siteUrl"
+          class="input input-bordered border-black"
+          type="text"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-lg font-medium mb-2">Site Image URL</label>
+        <input
+          name="siteImgUrl"
+          class="input input-bordered border-black"
+          type="text"
+        />
+      </div>
+      <button class="btn mt-10 btn-primary mx-0.5 text-white normal-case">
+        Add New Site
+      </button>
+      <button class="btn btn-primary btn-outline mt-10 mx-0.5 normal-case">
+        Cancel
+      </button>
+    </form>
+  </div>
+  <!-- Add new site from end  -->
+  <div class="grid grid-cols-4 gap-5">
+    <div class="shadow-lg border-2 border-gray-900">
+      <img
+        src="https://cdn.mos.cms.futurecdn.net/dcHyDicd7tuDEJX75NDoqV.jpeg"
+      />
+      <h3>GoDaddy.com</h3>
+      <div class="w-60 m-3 px-3 bg-blue-200 text-blue-800 rounded-lg text-sm">
+        https://godaddy.com
+      </div>
+      <div class="flex justify-center space-x-2 p-5">
+        <button class="btn btn-primary text-white normal-case btn-sm">
+          Add New Password
+        </button>
+        <button class="btn btn-primary btn-outline normal-case btn-sm">
+          Edit
+        </button>
+        <button class="btn btn-error text-white normal-case btn-sm">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
