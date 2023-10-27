@@ -1,1 +1,67 @@
-<p>login works!</p>
+<section class="bg-gray-50">
+  <div
+    class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen"
+  >
+    <div
+      class="w-full border-4 border-gray-900 bg-white rounded-lg shadow max-w-md"
+    >
+      <div class="p-6 space-y-6">
+        <h1 class="text-2xl font-bold text-gray-900">Log into your account</h1>
+        <div class="alert my-3 alert-error relative" *ngIf="alertType == 'error'">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="stroke-current shrink-0 w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span>{{ this.alertMessage }}</span>
+            <button
+              type="button"
+              class="absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900"
+              (click)="closeAlert()"
+            >
+              <i class="bx bx-x text-2xl"></i>
+            </button>
+          </div>
+        <form
+          #f="ngForm"
+          (ngSubmit)="onSubmitLoginForm(f.value)"
+          class="space-y-6"
+        >
+          <div>
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900">
+              Your Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="example@gmail.com"
+              class="input w-full input-bordered border-black border-2"
+              ngModel
+            />
+          </div>
+          <div>
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="********"
+              class="input input-bordered border-black w-full border-2"
+              ngModel
+            />
+          </div>
+          <button class="w-full btn btn-primary text-white">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AES, enc } from 'crypto-js';
 import { Observable } from 'rxjs';
 import { Site } from 'src/app/interfaces/site.interface';
 import { PasswordManagerService } from 'src/app/services/password-manager.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-password-list',
@@ -19,6 +21,15 @@ export class PasswordListComponent {
     password: '',
   };
   formState = 'Add New';
+  deletingPassId = '';
+  deletePasswordLoading = false;
+  showPassword = {
+    id: '',
+    value: false,
+  };
+
+  alertMessage: string = '';
+  alertType: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -38,24 +49,32 @@ export class PasswordListComponent {
     this.loadPasswords();
   }
 
-  onSubmitPasswordForm(values: object) {
+  onSubmitPasswordForm(values: any) {
+    values.password = this.encryptPassword(values.password);
     if (this.formState == 'Add New') {
       this.passwordManagerService
         .addPassword(values, this.site.id!)
         .then(() => {
-          console.log('data saved successfully');
+          this.alertMessage = 'New password added successfully';
+          this.alertType = 'success';
           this.resetForm();
         })
-        .catch(() => {});
+        .catch(() => {
+          this.alertMessage = 'Error! adding new password failed.';
+          this.alertType = 'error';
+        });
     } else {
       this.passwordManagerService
         .updatePassword(this.site.id!, this.editingPassword.id, values)
         .then(() => {
-          console.log('data updated successfully');
+          this.alertMessage = 'password updated successfully';
+          this.alertType = 'info';
           this.resetForm();
         })
         .catch((err) => {
           console.error(err);
+          this.alertMessage = 'Error! updating  password failed.';
+          this.alertType = 'error';
         });
     }
   }
@@ -75,20 +94,76 @@ export class PasswordListComponent {
     this.formState = 'Add New';
   }
 
-  deletePassword(passwordId: string) {
+  closeAlert() {
+    this.alertMessage = '';
+    this.alertType = '';
+  }
+
+  deletePassword() {
+    const passwordId = this.deletingPassId;
+    this.deletePasswordLoading = true;
+
     this.passwordManagerService
       .deletePassword(this.site.id!, passwordId)
       .then(() => {
-        console.log('password deleted successfully');
+        this.alertMessage = 'password deleted successfully';
+        this.alertType = 'info';
+        this.deletePasswordLoading = false;
+        this.closeDeletePassModal();
       })
       .catch((err) => {
         console.error(err);
+        this.alertMessage = 'Error! deleting  password failed.';
+        this.alertType = 'error';
+        this.deletePasswordLoading = false;
+        this.closeDeletePassModal();
       });
+  }
+
+  showDeletePassModal(id: string) {
+    const deletePassModal = document.getElementById(
+      'deletePassModal'
+    ) as HTMLDialogElement;
+    deletePassModal.showModal();
+    this.deletingPassId = id;
+  }
+
+  closeDeletePassModal() {
+    const deletePassModal = document.getElementById(
+      'deletePassModal'
+    ) as HTMLDialogElement;
+    deletePassModal.close();
   }
 
   loadPasswords() {
     this.passwordList = this.passwordManagerService.loadPasswords(
       this.site.id!
     );
+  }
+
+  encryptPassword(password: string) {
+    const secretKey = environment.encryptionKey;
+    const encryptedPassword = AES.encrypt(password, secretKey).toString();
+    return encryptedPassword;
+  }
+  decryptPassword(password: string) {
+    const secretKey = environment.encryptionKey;
+    const decryptedPassword = AES.decrypt(password, secretKey).toString(
+      enc.Utf8
+    );
+    return decryptedPassword;
+  }
+
+  displayPassword(id: string) {
+    this.showPassword = {
+      id,
+      value: true,
+    };
+  }
+  hidePassword(id: string) {
+    this.showPassword = {
+      id: '',
+      value: false,
+    };
   }
 }

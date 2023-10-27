@@ -1,3 +1,5 @@
+<app-navbar></app-navbar>
+
 <div class="container my-16">
   <h1 class="text-5xl mt-0 mb-5">Passvault password manager</h1>
   <p class="mb-5">
@@ -9,7 +11,10 @@
   </p>
   <button class="btn normal-case btn-primary text-white">Add New Site</button>
   <!-- alert -->
-  <div class="alert my-3 alert-success" *ngIf="alertType == 'success'">
+  <div
+    class="alert my-3 alert-success relative"
+    *ngIf="alertType == 'success' || alertType == 'info'"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -24,9 +29,16 @@
       ></path>
     </svg>
     <span>{{ this.alertMessage }}</span>
+    <button
+      type="button"
+      class="absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900"
+      (click)="closeAlert()"
+    >
+      <i class="bx bx-x text-2xl"></i>
+    </button>
   </div>
 
-  <div class="alert my-3 alert-error" *ngIf="alertType == 'error'">
+  <div class="alert my-3 alert-error relative" *ngIf="alertType == 'error'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -41,23 +53,13 @@
       ></path>
     </svg>
     <span>{{ this.alertMessage }}</span>
-  </div>
-
-  <div class="alert my-3 alert-success" *ngIf="alertType == 'info'">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      class="stroke-current shrink-0 w-6 h-6"
+    <button
+      type="button"
+      class="absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900"
+      (click)="closeAlert()"
     >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-      ></path>
-    </svg>
-    <span>{{ this.alertMessage }}</span>
+      <i class="bx bx-x text-2xl"></i>
+    </button>
   </div>
 
   <!-- Add new site from  -->

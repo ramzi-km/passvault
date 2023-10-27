@@ -67,6 +67,11 @@ export class SiteListComponent implements OnDestroy, OnInit {
     this.formState = 'Edit';
   }
 
+  closeAlert() {
+    this.alertMessage = '';
+    this.alertType = '';
+  }
+
   deleteSite() {
     this.deleteSiteLoading = true;
     this.passManagerService
