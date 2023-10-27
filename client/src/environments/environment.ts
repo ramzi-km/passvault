@@ -7,5 +7,5 @@ export const environment = {
     authDomain: 'pass-vault-3ede3.firebaseapp.com',
     messagingSenderId: '405498836132',
   },
-    production:true,
+  production: true,
 };
